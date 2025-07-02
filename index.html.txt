@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Google Sheets Logging</title>
+</head>
+<body>
+  <button id="sendBtn">Send Test Log</button>
+
+  <script>
+    const SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbyDcdVxrINrMUpmt6piYWGu15MDUmNcDX1J10hHhWlLhBSu6qPPlYtiB8qT1X5cRmPk/exec'; // Replace with your Apps Script URL
+
+    document.getElementById('sendBtn').onclick = () => {
+      const logEntry = {
+        cell: 'TestCell',
+        type: 'TestType',
+        start: new Date().toISOString(),
+        end: new Date().toISOString(),
+        durMin: 5
+      };
+
+      const params = new URLSearchParams(logEntry).toString();
+
+      fetch(`${SHEET_WEBAPP_URL}?${params}`)
+        .then(res => res.text())
+        .then(response => alert("Google Sheets response: " + response))
+        .catch(err => alert("Error: " + err));
+    };
+  </script>
+</body>
+</html>
